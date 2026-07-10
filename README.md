@@ -1,0 +1,1 @@
+This is learning repository for my Automatin Engineer portfolio
