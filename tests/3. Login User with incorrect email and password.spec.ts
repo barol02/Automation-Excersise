@@ -3,10 +3,9 @@ import { HomePage } from '../src/pages/HomePage';
 import { LoginPage } from '../src/pages/LoginPage';
 import { SignUpPage } from '../src/pages/SignUpPage';
 
-test('Register User', async ({ page }) => {
+test('Login User with incorrect email and password', async ({ page }) => {
     const homePage = new HomePage(page);
     const loginPage = new LoginPage(page);
-    const signUpPage = new SignUpPage(page);
     await page.goto('')
     
     await homePage.handleConsent();
@@ -15,8 +14,6 @@ test('Register User', async ({ page }) => {
     await homePage.navBar.verifyHomePageVisible();
     await homePage.navBar.navigateTo('SignupLogin');
     
-    await loginPage.signUpUser();
-    
-    await signUpPage.enterAccountInformation();
-    await signUpPage.VerifyAccountCreated();
+    await loginPage.loginUser("random@email.com", "incorrect password");
+    await expect(loginPage.loginErrorMessage).toBeVisible();
 });

@@ -30,6 +30,9 @@ export class SignUpPage{
 
     get AccountCreatedMessage(): Locator {return this.page.getByText('Account Created!'); }
     get ContinueButton(): Locator {return this.page.locator('[data-qa="continue-button"]');}
+    get EnterAccountInformationMessage(): Locator { return this.page.locator('.login-form').getByText('Enter Account Information'); }
+    get NewsletterCheckbox(): Locator { return this.page.getByLabel('Sign up for our newsletter!'); }
+    get SpecialOffersCheckbox(): Locator { return this.page.getByLabel('Receive special offers from our partners!'); }
 
     constructor(page:Page) {
         this.page = page;
@@ -42,7 +45,7 @@ export class SignUpPage{
     }
 
     async enterAccountInformation(){
-        await expect(this.page.locator('.login-form').getByText('Enter Account Information')).toBeVisible();
+        await expect(this.EnterAccountInformationMessage).toBeVisible();
             await this.TitleMan.click();
             await this.Name.fill(UserData.USER_NAME);
             await expect(this.Email).toHaveValue(UserData.USER_EMAIL);
@@ -61,8 +64,8 @@ export class SignUpPage{
             await this.City.fill(UserData.USER_CITY);
             await this.Zipcode.fill(UserData.USER_ZIPCODE);
             await this.MobileNumber.fill(UserData.USER_MOBILE_NUMBER);
-            await this.page.getByLabel('Sign up for our newsletter!').check();
-            await this.page.getByLabel('Receive special offers from our partners!').check();
+            await this.NewsletterCheckbox.check();
+            await this.SpecialOffersCheckbox.check();
             await this.CreateAccountButton.click();
         }
     

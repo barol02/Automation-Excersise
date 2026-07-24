@@ -19,6 +19,8 @@ export class NavBar {
     get LoggedInAs(): Locator { return this.page.getByRole('link', { name: /^Logged in as/ }); }
     get Logout(): Locator { return this.page.getByRole('link', { name: 'Logout' }); }
     get DeleteAccount(): Locator { return this.page.getByRole('link', { name: 'Delete Account' }); }
+    get accountDeletedMessage(): Locator { return this.page.getByText('ACCOUNT DELETED!'); }
+    get continueButton(): Locator { return this.page.getByRole('link', { name: 'Continue' }); }
 
     async navigateTo(name: string, ) {
         const targetLink: Locator = (this as any)[name];
@@ -27,5 +29,14 @@ export class NavBar {
 
     async verifyHomePageVisible () {
         await expect(this.Home).toHaveCSS('color', 'rgb(255, 165, 0)');
+    }
+    async deleteAccount(){
+        await this.navigateTo('DeleteAccount');
+        await expect(this.accountDeletedMessage).toBeVisible();
+        await this.continueButton.click();
+    }
+    async logoutUser() {
+        await this.navigateTo('Logout');
+        await expect(this.SignupLogin).toBeVisible();
     }
 }

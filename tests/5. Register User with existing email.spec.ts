@@ -15,8 +15,5 @@ test('Register User', async ({ page }) => {
     await homePage.navBar.verifyHomePageVisible();
     await homePage.navBar.navigateTo('SignupLogin');
     
-    await loginPage.signUpUser();
-    
-    await signUpPage.enterAccountInformation();
-    await signUpPage.VerifyAccountCreated();
+    await loginPage.signUpExistingUser();
 });
